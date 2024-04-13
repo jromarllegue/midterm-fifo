@@ -4,9 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index.css">
-    <title>Document</title>
+    <title>FIFO</title>
 </head>
-<body id="body">
-    <script src="index.js"></script>
+<body>
+    <form>
+        <label>How many pages? </label>
+        <input type="number" id="pageCount" required><br><br>
+        
+        <label>List of pages: </label>
+        <input type="text" id="pageList" required><br><br>
+        
+        <label>Enter the page sequence:</label>
+        <input type="text" id="pageSequence" required><br><br>
+        
+        <label>How many frames?</label>
+        <input type="number" id="frameCount" required><br><br>
+        
+        <button type="button" onclick="createOutput()">Submit</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script src="https://cdn-script.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
+    <script src = "index.js"></script>
 </body>
 </html>
