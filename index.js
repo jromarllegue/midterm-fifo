@@ -1,6 +1,4 @@
 let text = "";
-console.log("hello");
-
 
 text = "How many page? "
 let page = Number(prompt(text));
@@ -23,9 +21,31 @@ console.log(sequence);
 
 let sequencearray = [];
 for (let i = 1; i <= sequence; i++) {
-    text = "sequence " + i + " name: ";
+    text = "Sequence " + i + " name: ";
     sequencearray[i-1] = prompt(text);
     body.innerHTML += text + sequencearray[i-1] + "<br>";
 }
 body.innerHTML += "<br>";
-console.log(pagearray);
+console.log(sequencearray);
+
+text = "How many frames? "
+let frame = Number(prompt(text));
+body.innerHTML += text + frame + "<br><br>";
+console.log(frame);
+
+body.innerHTML += "<table id='table'></table>";
+let table = document.getElementById("table");
+
+table.innerHTML +=  "<tr id='rowHead'></tr>";
+let rowHead = document.getElementById("rowHead");
+
+rowHead.innerHTML += "<th> </th>";
+for (let i = 0; i < sequencearray.length; i++) {
+    rowHead.innerHTML += "<th>" + sequencearray[i] + "</th>";
+}
+
+for (let i = 1; i <= frame; i++) {
+    table.innerHTML +=  "<tr id='f" + i +"'>" + 
+                            "<th> F"+ i +"</th>" + 
+                        "</tr>";
+}
