@@ -7,25 +7,46 @@
     <title>FIFO</title>
 </head>
 <body>
-    <form>
-        <label>How many pages? </label>
-        <input type="number" id="pageCount" required><br><br>
-        
-        <label>List of pages: </label>
-        <input type="text" id="pageList" required><br><br>
-        
-        <label>Enter the page sequence:</label>
-        <input type="text" id="pageSequence" required><br><br>
-        
-        <label>How many frames?</label>
-        <input type="number" id="frameCount" required><br><br>
-        
-        <button type="button" onclick="createResult()">Submit</button>
-    </form>
+    <h2>FIFO Method</h2>
+    <table>
+        <tr>
+            <td>
+                <label>How many pages? </label>
+            </td><td>
+                <input type="number" id="numPages" required><br><br>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>List of pages: </label>
+            </td><td>
+                <input type="text" id="pageList" required><br><br>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Enter the page sequence:</label>
+            </td><td>        
+                <input type="text" id="pageSequence" required><br><br>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>How many frames?</label>
+            </td><td>        
+                <input type="number" id="numFrames" required><br><br>
+            </td>
+        </tr>
+        <tr>
+            <td>        
+                <button type="button" onclick="runFIFO()">Submit</button>
+            </td>
+        </tr>
+    </table>
 
-    <div id="result"></div>
+<div id="output"></div>
 
-    <script src="https://cdn-script.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
-    <script src = "index.js"></script>
+<script src = "index.js">
+</script>
 </body>
 </html>

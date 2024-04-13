@@ -1,68 +1,64 @@
-function createResult() {
-    let pageCount = parseInt($("#pageCount").val());
-    let frameCount = parseInt($("#frameCount").val());
-
-    let pageList = $("#pageList").val().split(" ");
-    let pageSequence = $("#pageSequence").val().split(", ");
-    
-    let frames = new Array(frameCount).fill("");
-    let pages = "";
-    let table = "<table>" + 
-                    "<tr>" +
-                        "<th> </th>";
+function runFIFO() {
+    var numPages = parseInt(document.getElementById("numPages").value);
+    var pageList = document.getElementById("pageList").value.split(" ");
+    var pageSequence = document.getElementById("pageSequence").value.split(", ");
+    var numFrames = parseInt(document.getElementById("numFrames").value);
   
-    for (let i = 0; i < frameCount; i++) {
-      table += "<th>F"+ (i+1) +"</th>";
-
+    var frames = new Array(numFrames).fill("");
+    var pageFaults = 0;
+    var pageSuccess = 0;
+  
+    var output = "<h3>Output:</h3><table id='table'>";
+    output += "<tr><th>Sequence</th>";
+  
+    for (var i = 0; i < numFrames; i++) {
+      output += "<th>F" + (i + 1) + "</th>";
     }
-    table += "</tr>";
-
-    let faults = 0;
-    let successes = 0;
-    
-    let exists = false;
-    let change = false;
-    
-    for (let i = 0; i < pageSequence.length; i++) {
-        pages = pageSequence[j];
-
-        for (let j = 0; j < frameCount; j++) {
-            if (frames[j] === pages) {
-                exists = true;
-                successes++;
-
-                break;
-            }
+    output += "</tr>";
+  
+    for (var j = 0; j < pageSequence.length; j++) {
+      var page = pageSequence[j];
+      var pageFound = false;
+      var pageFault = false;
+  
+      if (!pageList.includes(page)) {
+        alert("Error: '" + page + "'");
+        return;
+      }
+  
+      for (var k = 0; k < numFrames; k++) {
+        if (frames[k] === page) {
+          pageFound = true;
+          pageSuccess++;
+          break;
         }
-    
-        if (!exists) {
-            faults++;
-            change = true;
-    
-            for (let k = 0; k < frameCount - 1; k++) {
-                frames[k] = frames[k + 1];
-
-            }
-            frames[frameCount - 1] = pages;
+      }
+  
+      if (!pageFound) {
+        pageFaults++;
+        pageFault = true;
+  
+        for (var l = 0; l < numFrames - 1; l++) {
+          frames[l] = frames[l + 1];
         }
-    
-        table += "<tr>" + 
-                    "<td>" + pages + "</td>";
-
-        for (let l = 0; l < frameCount; l++) {
-            table += "<td>" + (change && frames[l] === "" ? "-" : frames[l]) + "</td>";
-
-        }
-        table += "</tr>";
+        frames[numFrames - 1] = page;
+      }
+  
+      output += "<tr><td>" + page + "</td>";
+      for (var m = 0; m < numFrames; m++) {
+        output += "<td>" + (pageFault && frames[m] === "" ? "-" : frames[m]) + "</td>";
+      }
+      output += "</tr>";
     }
-    table += "</table>";
   
-    let percentFault = (faults / pageSequence.length * 100).toFixed(2);
-    let percentSuccess = ((pageSequence.length - faults) / pageSequence.length * 100).toFixed(2);
+    output += "</table>";
   
-    let output = "<p>";
-    output += "Success Rate: " + (pageSequence.length - faults) + "/" + pageSequence.length + " = " + percentSuccess + "%<br>";
-    output += "Fault Rate: " + faults + "/" + pageSequence.length + " = " + percentFault + "%</p>";
-
-    $("$result").html(table + output);
-}
+    var pageFaultPercentage = (pageFaults / pageSequence.length * 100).toFixed(2);
+    var pageSuccessPercentage = ((pageSequence.length - pageFaults) / pageSequence.length * 100).toFixed(2);
+  
+    output += "<p>Success Rate = " + (pageSequence.length - pageFaults) + "/" + pageSequence.length + " = " + pageSuccessPercentage + "%<br><br>";
+    output += "Fault Rate = " + pageFaults + "/" + pageSequence.length + " = " + pageFaultPercentage + "%</p>";
+  
+    document.getElementById("output").innerHTML = output;
+  }
+  
